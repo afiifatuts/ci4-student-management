@@ -1,0 +1,68 @@
+CRITICAL - 2023-10-07 11:03:00 --> Invalid file: "layout/menu.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layout/menu.php')
+ 2 SYSTEMPATH/View/View.php(242): CodeIgniter\View\View->render('layout/menu', [], true)
+ 3 SYSTEMPATH/Common.php(1188): CodeIgniter\View\View->render('layout/beranda', [], true)
+ 4 APPPATH/Controllers/Layout.php(9): view('layout/beranda')
+ 5 SYSTEMPATH/CodeIgniter.php(919): App\Controllers\Layout->index()
+ 6 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Layout))
+ 7 SYSTEMPATH/CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-10-07 11:33:25 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/MySQLi/Connection.php:184
+Stack trace:
+#0 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/MySQLi/Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'dblatihandatata...', 3306, '', 0)
+#1 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/BaseConnection.php(391): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+#3 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 /Applications/MAMP/htdocs/belajar/ci4_ajax/app/Controllers/Mahasiswa.php(13): CodeIgniter\BaseModel->findAll()
+#7 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/CodeIgniter.php(919): App\Controllers\Mahasiswa->index()
+#8 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mahasiswa))
+#9 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /Applications/MAMP/htdocs/belajar/ci4_ajax/public/index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/MySQLi/Connection.php:229
+Stack trace:
+#0 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/BaseConnection.php(391): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+#2 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Database/BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 /Applications/MAMP/htdocs/belajar/ci4_ajax/app/Controllers/Mahasiswa.php(13): CodeIgniter\BaseModel->findAll()
+#6 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/CodeIgniter.php(919): App\Controllers\Mahasiswa->index()
+#7 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mahasiswa))
+#8 /Applications/MAMP/htdocs/belajar/ci4_ajax/system/CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /Applications/MAMP/htdocs/belajar/ci4_ajax/public/index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2023-10-07 11:33:25 --> Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+in SYSTEMPATH/Database/BaseConnection.php on line 427.
+ 1 SYSTEMPATH/Database/BaseConnection.php(574): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `mahasiswa`', [], false)
+ 3 SYSTEMPATH/Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH/Controllers/Mahasiswa.php(13): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH/CodeIgniter.php(919): App\Controllers\Mahasiswa->index()
+ 7 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mahasiswa))
+ 8 SYSTEMPATH/CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-07 11:33:44 --> App\Controllers\Mahasiswa::index(): Return value must be of type string, none returned
+in APPPATH/Controllers/Mahasiswa.php on line 18.
+ 1 SYSTEMPATH/CodeIgniter.php(919): App\Controllers\Mahasiswa->index()
+ 2 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mahasiswa))
+ 3 SYSTEMPATH/CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-10-07 11:52:44 --> Undefined array key "jengkel"
+in APPPATH/Views/mahasiswa/viewtampildata.php on line 35.
+ 1 APPPATH/Views/mahasiswa/viewtampildata.php(35): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "jengkel"', '/Applications/MAMP/htdocs/belajar/ci4_ajax/app/Views/mahasiswa/viewtampildata.php', 35)
+ 2 SYSTEMPATH/View/View.php(226): include('/Applications/MAMP/htdocs/belajar/ci4_ajax/app/Views/mahasiswa/viewtampildata.php')
+ 3 SYSTEMPATH/View/View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1188): CodeIgniter\View\View->render('mahasiswa/viewtampildata', [], true)
+ 5 APPPATH/Controllers/Mahasiswa.php(17): view('mahasiswa/viewtampildata', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(919): App\Controllers\Mahasiswa->index()
+ 7 SYSTEMPATH/CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Mahasiswa))
+ 8 SYSTEMPATH/CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
