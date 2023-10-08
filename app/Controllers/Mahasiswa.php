@@ -16,9 +16,8 @@ class Mahasiswa extends BaseController
 
     public function ambildata()  {
             if($this->request->isAJAX()){
-                $mhs = new Modelmahasiswa;
                 $data = [
-                    'dataMhs' => $mhs->findAll()
+                    'dataMhs' => $this->mhs->findAll()
                 ];
 
                 $msg=[
@@ -95,9 +94,9 @@ class Mahasiswa extends BaseController
                         'jenkel'=> $this -> request ->getVar('jenkel'),
                     ];
 
-                    $mhs = new Modelmahasiswa;
+                  
 
-                    $mhs->insert($simpanData);
+                    $this->mhs->insert($simpanData);
 
                     $msg =[
                         "sukses" => 'Data Mahasiswa berhasil tersimpan'
@@ -109,5 +108,70 @@ class Mahasiswa extends BaseController
         }else{
             exit("Maaf tidak dapat diproses");
         }
+    }
+
+    public function formedit(){
+        if($this->request->isAJAX()){
+            $nobp = $this->request->getVar('nobp');
+            $row = $this->mhs->find($nobp);
+            $data = [
+                //dikirim ke view -> field
+                'nobp'=> $row['nohp'],
+                'nama'=> $row['nama'],
+                'tempat'=> $row['tmplahir'],
+                'tanggal'=> $row['tgllahir'],
+                'jenkel'=> $row['jenkel'],
+            ];
+
+            $msg =[
+                "sukses" => view('mahasiswa/modaledit',$data)
+            ];
+
+            echo json_encode($msg);
+
+        }else{
+            exit("Maaf tidak dapat diproses");
+        }
+
+    }
+
+    public function updatedata(){
+        if($this->request->isAJAX()){
+                    $nobp= $this -> request ->getVar('nobp');
+                    $simpanData =[
+                        //nama field -> inputan
+                        'nama'=> $this -> request ->getVar('nama'),
+                        'tmplahir'=> $this -> request ->getVar('tempat'),
+                        'tgllahir'=> $this -> request ->getVar('tgl'),
+                        'jenkel'=> $this -> request ->getVar('jenkel'),
+                    ];
+
+
+                    $this->mhs->update($nobp,$simpanData);
+
+                    $msg =[
+                        "sukses" => 'Data Mahasiswa berhasil diupdate'
+                    ];
+        echo json_encode($msg);
+        }else{
+            exit("Maaf tidak dapat diproses");
+        }
+
+    }
+
+    public function hapus(){
+        if($this->request->isAJAX()){
+            $nobp= $this -> request ->getVar('nobp');
+           
+
+            $this->mhs->delete($nobp);
+
+            $msg =[
+                "sukses" => "Data Mahasiswa dengan nobp $nobp berhasil dihapus"
+            ];
+            echo json_encode($msg);
+            }else{
+                exit("Maaf tidak dapat diproses");
+            }
     }
 }
