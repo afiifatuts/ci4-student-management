@@ -219,4 +219,25 @@ class Mahasiswa extends BaseController
             exit("Maaf tidak dapat diproses");
         }
     }
+
+    public function hapusbanyak(){
+        if($this->request->isAJAX()){
+
+            $nobp = $this->request->getVar('nohp');
+
+            $jmldata = count($nobp);
+
+            for ($i=0; $i < $jmldata; $i++) { 
+                $this ->mhs->delete($nobp[$i]);
+            }
+
+            $msg = [
+                "sukses"=> "$jmldata Data berhasil dihapus"
+            ];
+            echo json_encode($msg);
+
+        }else{
+            exit("Maaf tidak dapat diproses");
+        }
+    }
 }

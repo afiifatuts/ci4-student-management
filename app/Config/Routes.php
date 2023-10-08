@@ -17,3 +17,4 @@ $routes->post('/mahasiswa/updatedata', 'Mahasiswa::updatedata');
 $routes->post('/mahasiswa/hapus', 'Mahasiswa::hapus');
 $routes->get('/mahasiswa/formtambahbanyak', 'Mahasiswa::formtambahbanyak');
 $routes->post('/mahasiswa/simpandatabanyak', 'Mahasiswa::simpandatabanyak');
+$routes->post('/mahasiswa/hapusbanyak', 'Mahasiswa::hapusbanyak');
