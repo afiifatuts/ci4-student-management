@@ -174,4 +174,49 @@ class Mahasiswa extends BaseController
                 exit("Maaf tidak dapat diproses");
             }
     }
+
+    public function formtambahbanyak()
+    {
+        if($this->request->isAJAX()){
+            $msg=[
+                'data'=> view('mahasiswa/formtambahbanyak')
+            ];
+            echo json_encode($msg);
+
+        }else{
+            exit("Maaf tidak dapat diproses");
+        }
+    }
+   
+    public function simpandatabanyak()
+    {
+        if($this->request->isAJAX()){
+
+            $nobp = $this->request->getVar('nobp');
+            $nama = $this->request->getVar('nama');
+            $tempat = $this->request->getVar('tempat');
+            $tgl = $this->request->getVar('tgl');
+            $jenkel = $this->request->getVar('jenkel');
+
+            $jmldata = count($nobp);
+
+            for ($i=0; $i < $jmldata; $i++) { 
+                $this ->mhs->insert([
+                    'nohp' => $nobp[$i],
+                    'nama' => $nama[$i],
+                    'tmplahir' => $tempat[$i],
+                    'tgllahir' => $tgl[$i],
+                    'jenkel' => $jenkel[$i],
+                ]);
+            }
+
+            $msg = [
+                "sukses"=> "$jmldata Data berhasil disimpan"
+            ];
+            echo json_encode($msg);
+
+        }else{
+            exit("Maaf tidak dapat diproses");
+        }
+    }
 }

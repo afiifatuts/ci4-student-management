@@ -19,8 +19,12 @@
                             <div class="card-body">
                                 <div class="card-title">
                                     <button type="button" class="btn btn-primary btn-sm tomboltambah">
-                                        <i class="fa fa-plus-circle mr-1"></i>Tambah Data</button>
+                                    <i class="fa fa-plus-circle mr-1"></i>Tambah Data</button>
+                                    <button type="button" class="btn btn-info btn-sm tomboltambahbanyak">
+                                    <i class="fa fa-plus-circle mr-1"></i>Tambah Data Banyak</button>
                                 </div>
+
+                                <!-- untuk tambah banyak  -->
                                 <p class="card-text viewdata">
                                    
                                 </p>
@@ -47,10 +51,14 @@
         });
     }
  </script>
+
+ <!-- Ketika page di buka -->
  <script>
     $(document).ready(function(){
+        //tampil data mahasiswa
         datamahasiswa();
 
+        // handle tombol tambah
         $('.tomboltambah').click(function (e) {
             e.preventDefault();
             $.ajax({
@@ -68,7 +76,28 @@
             
         });
         })
-        // $('#datamahasiswa').DataTable();
+        
+        
+        // handle tombol tambah banyak
+        $('.tomboltambahbanyak').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+            url: "<?= site_url('mahasiswa/formtambahbanyak')?>",
+            dataType: "json",
+            beforeSend: function () {
+                $('.viewdata').html('<i class="fa fa-spin fa-spinner"></i>')
+            },
+            success: function (response) {
+                $('.viewdata').html(response.data).show();
+            },
+            error: function(xhr, status, error) {
+            console.log('An error occurred:', error);
+             alert('An error occurred: ' + error);
+            }
+            
+        });
+        })
+
     });
  </script>
 <?= $this->endSection('')?>
