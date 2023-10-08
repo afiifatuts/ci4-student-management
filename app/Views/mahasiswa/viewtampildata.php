@@ -17,46 +17,58 @@
  <div class="col-sm-12">
  <div class="card m-b-30">
                             <div class="card-body">
-                                <p class="card-text">
-                                    <table class="table table-sm table-stripped" id="datamahasiswa">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>No BP</th>
-                                                <th>Nama Mahasiswa</th>
-                                                <th>Tempat Lahir</th>
-                                                <th>Tgl Lahir</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <?php $nomor =0; foreach ($dataMhs as $mhs) : $nomor++?>
-                                                <tr>
-                                                    <td><?= $nomor ?></td>
-                                                    <td><?= $mhs['nohp'] ?></td>
-                                                    <td><?= $mhs['nama'] ?></td>
-                                                    <td><?= $mhs['tmplahir'] ?></td>
-                                                    <td><?= $mhs['tgllahir'] ?></td>
-                                                    <td><?= $mhs['jenkel'] ?></td>
-                                                    <td>
-
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                                <div class="card-title">
+                                    <button type="button" class="btn btn-primary btn-sm tomboltambah">
+                                        <i class="fa fa-plus-circle mr-1"></i>Tambah Data</button>
+                                </div>
+                                <p class="card-text viewdata">
+                                   
                                 </p>
                               
-                            </div>
-                        </div>
+      </div>
+   </div>
  </div>
 
+ <!-- Untuk menampung modal nya  -->
+ <div class="viewmodal" style="display:none;"></div>
+ <script>
+    function datamahasiswa() {
+        $.ajax({
+            url: "<?= site_url('mahasiswa/ambildata')?>",
+            dataType: "json",
+            success: function (response) {
+                $('.viewdata').html(response.data);
+            },
+            error: function(xhr, status, error) {
+            console.log('An error occurred:', error);
+             alert('An error occurred: ' + error);
+            }
+            
+        });
+    }
+ </script>
  <script>
     $(document).ready(function(){
-        $('#datamahasiswa').DataTable();
+        datamahasiswa();
+
+        $('.tomboltambah').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+            url: "<?= site_url('mahasiswa/formtambah')?>",
+            dataType: "json",
+            success: function (response) {
+                $('.viewmodal').html(response.data).show();
+
+            $('#modaltambah').modal('show');
+            },
+            error: function(xhr, status, error) {
+            console.log('An error occurred:', error);
+             alert('An error occurred: ' + error);
+            }
+            
+        });
+        })
+        // $('#datamahasiswa').DataTable();
     });
  </script>
 <?= $this->endSection('')?>
