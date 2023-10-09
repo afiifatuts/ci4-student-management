@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Modelmahasiswa;
+use App\Models\Modeldatamahasiswa;
+use Config\Services;
 
 class Mahasiswa extends BaseController
 {
@@ -28,6 +30,30 @@ class Mahasiswa extends BaseController
             }else{
                 exit("Maaft tidak dapat diproses");
             }
+    }
+
+    public function listdata()
+    {
+        $request = Services::request();
+        $datamodel = new Modeldatamahasiswa($request);
+        if ($request->getMethod(true) == 'POST') {
+            $lists = $datamodel->get_datatables();
+            $data = [];
+            $no = $request->getPost("start");
+            foreach ($lists as $list) {
+                $no++;
+                $row = [];
+                $row[] = '';
+                $data[] = $row;
+            }
+            $output = [
+                "draw" => $request->getPost('draw'),
+                "recordsTotal" => $datamodel->count_all(),
+                "recordsFiltered" => $datamodel->count_filtered(),
+                "data" => $data
+            ];
+            echo json_encode($output);
+        }
     }
 
     public function formtambah()

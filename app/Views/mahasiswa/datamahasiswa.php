@@ -22,29 +22,7 @@
                                         </thead>
 
                                         <tbody>
-                                            <?php $nomor =0; foreach ($dataMhs as $mhs) : $nomor++?>
-                                                <tr>
-                                                    <td>
-                                                        <input type="checkbox" name="nohp[]" class=" centangNobp" value="<?= $mhs['nohp'] ?>">
-                                                    </td>
-                                                    <td><?= $nomor ?></td>
-                                                    <td><?= $mhs['nohp'] ?></td>
-                                                    <td><?= $mhs['nama'] ?></td>
-                                                    <td><?= $mhs['tmplahir'] ?></td>
-                                                    <td><?= $mhs['tgllahir'] ?></td>
-                                                    <td><?= $mhs['jenkel'] ?></td>
-                                                    <td>
-                                                    <button type="button" class="btn btn-info btn-sm" onclick="edit('<?= $mhs['nohp']?>')">
-                                                    <i class="fa fa-tags"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger btn-sm" onclick="hapus('<?= $mhs['nohp']?>')">
-                                                    <i class="fa fa-trash"></i>
-                                                    </button>
-
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <?php endforeach; ?>
+                                            
                                         </tbody>
                                     </table>
                                      <!-- Untuk menampung modal nya  -->
@@ -52,10 +30,34 @@
  <?= form_close();?>
  <!-- Fungsi menampilkan datatble  -->
 <script>
+    function listdatamahasiswa() {
+        //serverside datatable
+        var table = $('#datamahasiswa').DataTable({
+            "processing":true,
+            "serverSide":true,
+            "order":[],
+            "ajax":{
+                "url":"<?= site_url('mahasiswa/listdata')?>",
+                "type":"POST",
+            },
+
+            "columnDefs":[{
+                "targets":0,
+                "orderable":false,
+            },{
+                "targets":1,
+                "orderable":false,
+            }]
+        })
+      }
+</script>
+
+<script>
     $(document).ready(function () {
         // menampilkan datatable 
-        $('#datamahasiswa').DataTable();
+        // $('#datamahasiswa').DataTable();
         
+        listdatamahasiswa();
         // mencentang smua checkbox 
         $(`#centangSemua`).click(function (e) { 
 
