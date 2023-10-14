@@ -17,13 +17,14 @@
                                                 <th>Tempat Lahir</th>
                                                 <th>Tgl Lahir</th>
                                                 <th>Jenis Kelamin</th>
+                                                <th>Prodi</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            
-                                        </tbody>
+                                      
+                                    </tbody>
                                     </table>
                                      <!-- Untuk menampung modal nya  -->
  <!-- <div class="viewmodal" style="display:none;"></div> -->
@@ -160,6 +161,8 @@ function edit(nobp) {
         confirmButtonText: 'Ya',
         cancelButtonText: 'Tidak',
         }).then((result) => {
+            if (result.isConfirmed) {
+            
             $.ajax({
             type: "post",
             url: "<?= site_url('mahasiswa/hapus')?>",
@@ -180,7 +183,33 @@ function edit(nobp) {
                     alert("Terjadi kesalahan dalam permintaan AJAX: " + error );
                 }
         });
-        })
+    }
+    })
         
+    }
+</script>
+
+<!-- upload image  -->
+<script>
+    function upload(nobp){
+        $.ajax({
+        type: "post",
+        url: "<?= site_url('mahasiswa/formupload')?>",
+        data: {
+            nobp : nobp
+        },
+        dataType: "json",
+        success: function (response) {
+            if(response.sukses){
+                $('.viewmodal').html(response.sukses).show();
+                $('#modalupload').modal('show');
+            }
+        },
+        error: function (xhr, status, error) {
+                // Terjadi kesalahan selama permintaan AJAX
+                alert("Terjadi kesalahan dalam permintaan AJAX: " + error+status+error +xhr);
+                console.log("Terjadi kesalahan dalam permintaan AJAX: " + error );
+            }
+    });
     }
 </script>

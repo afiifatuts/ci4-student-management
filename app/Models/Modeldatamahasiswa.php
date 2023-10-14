@@ -8,6 +8,7 @@ use CodeIgniter\Model;
 class Modeldatamahasiswa extends Model
 {
     protected $table = "mahasiswa";
+    //kolom yang bisa di order, jumlahnya sesuai dengan column yang tampil
     protected $column_order = array(null,null,'nohp','nama','tmplahir','tgllahir','jenkel',null);
     protected $column_search = array('nohp','nama');
     protected $order = array('nohp' => 'asc');
@@ -20,8 +21,9 @@ class Modeldatamahasiswa extends Model
         parent::__construct();
         $this->db = db_connect();
         $this->request = $request;
- 
-        $this->dt = $this->db->table($this->table);
+        
+        //table yang saling berelasi pakai join
+        $this->dt = $this->db->table($this->table)->select('*')->join('prodi','prodiid=mhsprodiid');
     }
     private function _get_datatables_query()
     {

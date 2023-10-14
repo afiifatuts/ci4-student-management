@@ -43,7 +43,25 @@ class Mahasiswa extends BaseController
             foreach ($lists as $list) {
                 $no++;
                 $row = [];
-                $row[] = '';
+                $tombolEdit ="<button type=\"button\" class=\"btn btn-info btn-sm\" onclick=\"edit('".$list->nohp."')\">
+                <i class=\"fa fa-tags\"></i>
+                </button>" ;
+                $tombolHapus ="<button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"hapus('".$list->nohp."')\">
+                <i class=\"fa fa-trash\"></i>
+                </button>";
+                $tombolUpload ="<button type=\"button\" class=\"btn btn-warning btn-sm\" onclick=\"upload('".$list->nohp."')\">
+                <i class=\"fa fa-image\"></i>
+                </button>";
+                //column yang akan ditampilkan
+                $row[] = "      <input type=\"checkbox\" name=\"nohp[]\" class=\"centangNobp\" value=\"$list->nohp>\">";
+                $row[] = $no;
+                $row[] = $list->nohp;
+                $row[] = $list->nama;
+                $row[] = $list->tmplahir;
+                $row[] = $list->tgllahir;
+                $row[] = $list->jenkel;
+                $row[] = $list->prodinama;
+                $row[] = $tombolEdit ." ". $tombolHapus." ". $tombolUpload;
                 $data[] = $row;
             }
             $output = [
@@ -260,6 +278,68 @@ class Mahasiswa extends BaseController
             $msg = [
                 "sukses"=> "$jmldata Data berhasil dihapus"
             ];
+            echo json_encode($msg);
+
+        }else{
+            exit("Maaf tidak dapat diproses");
+        }
+    }
+
+    public function formupload(){
+        if($this->request->isAJAX()){
+
+            $nobp = $this->request->getVar('nobp');
+
+            $data = [
+                'nobp' => $nobp
+            ];
+
+            $msg =[
+                'sukses' => view('mahasiswa/modalupload',$data)
+            ];
+
+            echo json_encode($msg);
+
+        }else{
+            exit("Maaf tidak dapat diproses");
+        }
+    }
+
+    public function doupload() {
+        if($this->request->isAJAX()){
+
+            $nobp = $this->request->getVar('nobp');
+
+            $validation = \Config\Services::validation();
+
+            $valid = $this->validate([
+                'foto'=>[
+                    'label'=> 'Upload Foto',
+                    'rules'=> 'uploaded[foto]|mime_in[foto,image/png,image/jpg,image/jpeg]|is_image[foto]',
+                    'errors'=> [
+                        'uploaded'=>'{field} wajib diisi',
+                        'mime_in'=>'Harus dalam bentuk gambar, jangan file lain',
+                    ]
+
+                ]
+                ]);
+
+            if(!$valid){
+                $msg =[
+                    'error' => [
+                        'foto'=> $validation->getError('foto')
+                    ]
+                ];
+            }else{
+                $filefoto = $this->request->getFile('foto');
+                $filefoto->move('assets/foto',$nobp.".".$filefoto->getExtension());
+                $msg=[
+                    'sukses'=>'Berhasil Upload'
+                ];
+            }
+
+            
+
             echo json_encode($msg);
 
         }else{

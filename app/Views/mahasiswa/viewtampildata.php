@@ -41,6 +41,7 @@
             url: "<?= site_url('mahasiswa/ambildata')?>",
             dataType: "json",
             success: function (response) {
+                // console.log(response.data);
                 $('.viewdata').html(response.data);
             },
             error: function(xhr, status, error) {
