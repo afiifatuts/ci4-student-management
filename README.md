@@ -52,3 +52,19 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - json (enabled by default - don't turn it off)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+
+## Tampilan Web
+Login Page
+![Screen Shot 2023-10-15 at 21 13 50](https://github.com/afiifatuts/ci4-student-management/assets/32781700/790e162d-5b3e-4f72-b5f7-11e21527b3b3)
+
+Tampilan Awal
+![Screen Shot 2023-10-15 at 21 18 38](https://github.com/afiifatuts/ci4-student-management/assets/32781700/7ba4503b-af5a-4da4-9c91-a0fdc9d0e97f)
+
+Menu Mahasiswa
+![Screen Shot 2023-10-15 at 21 14 05](https://github.com/afiifatuts/ci4-student-management/assets/32781700/e430a23f-9e09-4001-bcd1-291f49fe98a1)
+
+
+
+
+
