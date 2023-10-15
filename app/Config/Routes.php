@@ -7,6 +7,10 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+
+$routes->get('/login', 'Login::index');
+$routes->post('/login/cekuser', 'Login::cekuser');
+
 $routes->get('/layout', 'Layout::index');
 $routes->get('/mahasiswa', 'Mahasiswa::index');
 $routes->get('/mahasiswa/ambildata', 'Mahasiswa::ambildata');
@@ -21,4 +25,5 @@ $routes->post('/mahasiswa/hapusbanyak', 'Mahasiswa::hapusbanyak');
 $routes->post('/mahasiswa/listdata', 'Mahasiswa::listdata');
 $routes->post('/mahasiswa/formupload', 'Mahasiswa::formupload');
 $routes->post('/mahasiswa/doupload', 'Mahasiswa::doupload');
-$routes->get('/mahasiswa/doupload', 'Mahasiswa::doupload');
+// $routes->get('/mahasiswa/hash', 'Mahasiswa::hash');
+// $routes->post('/mahasiswa/doupload', 'Mahasiswa::doupload');

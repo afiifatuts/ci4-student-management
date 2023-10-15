@@ -8,6 +8,9 @@ use Config\Services;
 
 class Mahasiswa extends BaseController
 {
+    // public function hash() {
+    //     echo password_hash('admin',PASSWORD_BCRYPT);
+    // }
     public function index(): string
     {
        
