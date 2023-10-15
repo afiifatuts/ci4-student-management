@@ -6,6 +6,7 @@ class Login extends BaseController
 {
     public function __construct()
     {
+        //Koneksi ke database
         $this->db = \Config\Database::connect();
     }
     public function index()
@@ -37,6 +38,8 @@ class Login extends BaseController
                         ],
             ]);
 
+            
+            }
             if(!$valid){
                 $msg =[
                     //ini adalah data json yang kita kirimkan
@@ -46,8 +49,56 @@ class Login extends BaseController
                     ]
                     ];
 
-                    echo json_encode($msg);
-            }
-        }
+                }else{
+                    //cek user dulu ke database 
+                    $query_cekuser = $this->db->query("SELECT * FROM users JOIN levels ON levelid=userlevelid WHERE userid= '$userid'");
+
+                    $result = $query_cekuser->getResult();
+
+                    if(count($result)>0){
+                        //lanjutkan
+                        $row = $query_cekuser ->getRow();
+                        $password_user = $row->userpass;
+
+                        if(password_verify($pass, $password_user)){
+                            //lanjutkan(buat session untuk menyimpan user login)
+                            $simpan_session = [
+                                'login'=>true,
+                                'iduser'=>$userid,
+                                'namauser'=>$row->usernama,
+                                'idlevel'=>$row->userlevelid,
+                                'namalevel'=>$row->levelnama,
+                            ];
+                            //menyimpan session
+                            $this->session->set($simpan_session);
+                            $msg=[
+                                'sukses'=>[
+                                    'link'=>'mahasiswa'
+                                ]
+                                ];
+                        }else{
+                            $msg=[
+                                'error'=>[
+                                    'password'=>'Maaf password anda salah'
+                                ]
+                            ];
+                        }
+
+                    }else{
+                        $msg = [
+                            'error'=>[
+                                'userid'=>'Maaf ID User tidak ditemukan'
+                            ]
+                            ];
+                    }
+                }
+
+                
+                echo json_encode($msg);
+    }
+
+    public function keluar() {
+        $this->session->destroy();
+        return redirect()->to('/login');
     }
 }

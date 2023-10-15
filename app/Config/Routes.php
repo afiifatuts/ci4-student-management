@@ -10,6 +10,7 @@ $routes->get('/', 'Home::index');
 
 $routes->get('/login', 'Login::index');
 $routes->post('/login/cekuser', 'Login::cekuser');
+$routes->get('/login/keluar', 'Login::keluar');
 
 $routes->get('/layout', 'Layout::index');
 $routes->get('/mahasiswa', 'Mahasiswa::index');

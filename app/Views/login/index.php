@@ -117,6 +117,10 @@
                             $('.errorPassword').html('')
                         }
                     }
+
+                    if(response.sukses){
+                        window.location="<?= base_url() ?>"+ response.sukses.link;
+                    }
                     
                     
                 },
