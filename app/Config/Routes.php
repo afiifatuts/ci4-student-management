@@ -21,3 +21,4 @@ $routes->post('/mahasiswa/hapusbanyak', 'Mahasiswa::hapusbanyak');
 $routes->post('/mahasiswa/listdata', 'Mahasiswa::listdata');
 $routes->post('/mahasiswa/formupload', 'Mahasiswa::formupload');
 $routes->post('/mahasiswa/doupload', 'Mahasiswa::doupload');
+$routes->get('/mahasiswa/doupload', 'Mahasiswa::doupload');

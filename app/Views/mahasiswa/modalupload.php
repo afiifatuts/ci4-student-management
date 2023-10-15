@@ -24,6 +24,29 @@
               </div>
             </div>
           </div>
+
+          <div class="form-group row">
+            <label for="" class="col-sm-2 col-form-label">Ambil Gambar (Webcam)</label>
+            <div class="col-sm-6">
+            <div id="my_camera">
+
+            </div> 
+            <p>
+                <button type="button" class="btn btn-sm btn-info" onclick="take_picture()">
+                Ambil Gambar
+                </button>
+              </p>
+            </div>
+          </div>
+          
+          <div class="form-group row">
+            <label for="" class="col-sm-2 col-form-label">Cature</label>
+            <div class="col-sm-6" id="results">
+
+            </div>
+            <input type="hidden" name="imagecam" class="image-tag">
+          </div>
+
          
       </div>
       <div class="modal-footer">
@@ -36,7 +59,6 @@
   </div>
 </div>
 
-action="<?= site_url('mahasiswa/simpandata') ?>"
 
 <script>
     $(document).ready(function () {
@@ -65,11 +87,25 @@ action="<?= site_url('mahasiswa/simpandata') ?>"
                   $('.btnupload').html('Upload');  
                 },
                 success: function (response) {
-                    if(response.error.foto){
+                    if(response.error){
+                      
+                      if(response.error.foto){
                         $('#foto').addClass('is-invalid')
                         $('.errorfoto').html(response.error.foto)
+                      }
+
+                      Swal.fire(
+                      'Maaf!',
+                      response.error,
+                      'error'
+                    )
                     }else{
-                      alert(response.sukses)
+                      Swal.fire(
+                      'Berhasil!',
+                      response.sukses,
+                      'success'
+                    )
+                      $('#modalupload').modal('hide')
                     }
                 },
         error: function (xhr, status, error) {
@@ -80,4 +116,23 @@ action="<?= site_url('mahasiswa/simpandata') ?>"
             });
         });
     });
+</script>
+
+<!-- Untuk menampilkan webcamp  -->
+<script>
+  Webcam.set({
+    width:320,
+    height:240,
+    image_format:'jpeg',
+    jpeg_quality:100
+  })
+  Webcam.attach('#my_camera')
+
+  function take_picture() { 
+    Webcam.snap(function (data_url) { 
+      $('.image-tag').val(data_url);
+
+    document.getElementById('results').innerHTML = '<img src="'+data_url+'"/>'
+     })
+   }
 </script>

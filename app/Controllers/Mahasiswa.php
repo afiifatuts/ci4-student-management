@@ -312,33 +312,83 @@ class Mahasiswa extends BaseController
 
             $validation = \Config\Services::validation();
 
-            $valid = $this->validate([
-                'foto'=>[
-                    'label'=> 'Upload Foto',
-                    'rules'=> 'uploaded[foto]|mime_in[foto,image/png,image/jpg,image/jpeg]|is_image[foto]',
-                    'errors'=> [
-                        'uploaded'=>'{field} wajib diisi',
-                        'mime_in'=>'Harus dalam bentuk gambar, jangan file lain',
-                    ]
-
-                ]
-                ]);
-
-            if(!$valid){
-                $msg =[
-                    'error' => [
-                        'foto'=> $validation->getError('foto')
-                    ]
-                ];
-            }else{
-                $filefoto = $this->request->getFile('foto');
-                $filefoto->move('assets/foto',$nobp.".".$filefoto->getExtension());
-                $msg=[
-                    'sukses'=>'Berhasil Upload'
-                ];
+            if($_FILES['foto']['name']==NULL && $this->request->getpost('imagecam')==''){
+                $msg = ['error'=>'Silahkan pilih satu ya'];
             }
 
-            
+            //upload dengan webcam
+           else if($_FILES['foto']['name']==NULL){
+                //cek data apakah sudah ada fotonya supaya tdk menumpuk
+                $cekdata = $this->mhs->find($nobp);
+                $fotolama = $cekdata['foto'];
+                if($fotolama != NULL || $fotolama != ""){
+                    unlink($fotolama);
+                }
+
+                $image = $this->request->getPost('imagecam');
+                $image = str_replace('data:image/jpeg;base64,','',$image);
+
+                $image = base64_decode($image,true);
+
+                $filename = $nobp.'.jpg';
+                file_put_contents(FCPATH.'/assets/foto/'.$filename,$image);
+
+                $updatedata =[
+                    'foto' => './assets/foto/' . $filename 
+                ];
+
+                $this->mhs->update($nobp,$updatedata);
+
+                $msg=[
+                    'sukses' => 'Berhasil Upload Foto menggunakan Webcam'
+                ];
+
+            }else{
+                $valid = $this->validate([
+                    'foto'=>[
+                        'label'=> 'Upload Foto',
+                        'rules'=> 'uploaded[foto]|mime_in[foto,image/png,image/jpg,image/jpeg]|is_image[foto]',
+                        'errors'=> [
+                            'uploaded'=>'{field} wajib diisi',
+                            'mime_in'=>'Harus dalam bentuk gambar, jangan file lain',
+                        ]
+    
+                    ]
+                    ]);
+    
+                if(!$valid){
+                    $msg =[
+                        'error' => [
+                            'foto' => $validation->getError('foto')
+                        ]
+                    ];
+                }
+                //upload dari file
+                else{
+    
+                    //cek data apakah sudah ada fotonya supaya tdk menumpuk
+                    $cekdata = $this->mhs->find($nobp);
+                    $fotolama = $cekdata['foto'];
+                    if($fotolama != NULL || $fotolama != ""){
+                        unlink($fotolama);
+                    }
+    
+                    $filefoto = $this->request->getFile('foto');
+                    $filefoto->move('assets/foto',$nobp.".".$filefoto->getExtension());
+                    
+                    $updatedata =[
+                        'foto' => './assets/foto/' . $filefoto->getName() 
+                    ];
+    
+                    $this->mhs->update($nobp,$updatedata);
+                    
+                    $msg=[
+                        'sukses' => 'Berhasil Upload'
+                    ];
+                }
+            }
+
+  
 
             echo json_encode($msg);
 

@@ -9,7 +9,7 @@ class Modelmahasiswa extends Model{
     protected $primaryKey = 'nohp';
 
     //field yang wajib diisi
-    protected $allowedFields = ['nohp','nama','tmplahir', 'tgllahir','jenkel'];
+    protected $allowedFields = ['nohp','nama','tmplahir', 'tgllahir','jenkel','foto'];
 
     
 }
