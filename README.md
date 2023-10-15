@@ -64,6 +64,12 @@ Tampilan Awal
 Menu Mahasiswa
 ![Screen Shot 2023-10-15 at 21 14 05](https://github.com/afiifatuts/ci4-student-management/assets/32781700/e430a23f-9e09-4001-bcd1-291f49fe98a1)
 
+Tambah Data
+![Screen Shot 2023-10-15 at 21 18 51](https://github.com/afiifatuts/ci4-student-management/assets/32781700/742b4398-7a37-4ef8-aee7-cbb1ebf20a9d)
+
+Tambah Banyak Data
+![Screen Shot 2023-10-15 at 21 19 06](https://github.com/afiifatuts/ci4-student-management/assets/32781700/465c237e-f5a4-4f64-8722-4a001e7f9e6c)
+
 
 
 
